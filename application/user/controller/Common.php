@@ -8,6 +8,8 @@ class Common extends Controller{
         if (!session('user.id')) {
             $this->redirect('login/index');
         }
+        $sys = cache('System');
+        $this->assign('sys',$sys);
         $this->userInfo=db('users')->alias('u')
             ->join(config('database.prefix').'user_level ul','u.level = ul.level_id','left')
             ->where('u.id','=',session('user.id'))
